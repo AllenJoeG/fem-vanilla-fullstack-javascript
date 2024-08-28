@@ -1,5 +1,5 @@
 # Fullstack-vanilla-javaScript-fem
-
+[Build Status](https://github.com/AllenJoeG/fem-vanilla-fullstack-javascript/workflows/Run%20tests/badge.svg)
 
 ## Abstract Factory
 ```
