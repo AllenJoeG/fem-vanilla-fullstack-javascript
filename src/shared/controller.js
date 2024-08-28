@@ -35,13 +35,17 @@ export default class Controller {
     }
     
     this.#view.addRow ({ name, age, email })
+    this.#view.resetForm()
+  }
+
+  #onClear() {
 
   }
 
   #init() {
-    // Point to the current context with bind
+    // Point to the current class context with bind
     this.#view.configureFormSubmit(this.#onSubmit.bind(this))
-    this.#view.configureFormClear()
+    this.#view.configureFormClear(this.#onClear.bind(this))
 
 
     const initialData= [
