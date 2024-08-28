@@ -23,9 +23,17 @@ export default class Controller {
     return controller
   }
 
+  #onSubmit({ name, age, email}) {
+    console.log('received', {name, age, email})
+
+  }
+
   #init() {
+    // Point to the current context with bind
+    this.#view.configureFormSubmit(this.#onSubmit.bind(this))
+
     const initialData= [
-      { name: 'Joe Allen', age: 35, email: 'joe@joe.com'},
+      { name: 'Joe', age: 35, email: 'joe@joe.com'},
       { name: 'Kelly', age: 42, email: 'kelly@kelly.com'},
       { name: 'Sasha', age: 43, email: 'sasha@sasha.com'},
     ]
