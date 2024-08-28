@@ -21,6 +21,7 @@ OS:
 
 ## Design Patterns for Javascript:
 Use Abstract Factory pattern to have a Controller handle platform identification.
+(see controller.js, index.js, view.js)
 
 ## Roadmap:
   Building the Interfact
