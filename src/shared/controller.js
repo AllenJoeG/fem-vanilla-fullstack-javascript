@@ -1,4 +1,5 @@
 // Name could be specified if we had multiple models to control.
+// The controller doesn't know its context. 
 
 // Decoration pattern allows Intellisense to populate dynamically 
 
@@ -23,19 +24,30 @@ export default class Controller {
     return controller
   }
 
+  #isValid(data) {
+    return data.name && data.age && data.email
+  }
+
   #onSubmit({ name, age, email}) {
-    console.log('received', {name, age, email})
+    if (!this.#isValid({ name, age, email })) {
+      this.#view.notify({ msg: 'Please, provide valid Name, Age, and Email!' })
+      return
+    }
+    
+    this.#view.addRow ({ name, age, email })
 
   }
 
   #init() {
     // Point to the current context with bind
     this.#view.configureFormSubmit(this.#onSubmit.bind(this))
+    this.#view.configureFormClear()
+
 
     const initialData= [
       { name: 'Joe', age: 35, email: 'joe@joe.com'},
-      { name: 'Kelly', age: 42, email: 'kelly@kelly.com'},
-      { name: 'Sasha', age: 43, email: 'sasha@sasha.com'},
+      { name: 'Mina', age: 14, email: 'mina@cat.com'},
+      { name: 'Quade', age: 10, email: 'quade@cat.com'},
     ]
 
     this.#view.render(initialData)
