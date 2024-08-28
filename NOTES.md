@@ -12,11 +12,11 @@ re: Bundlers
 https://byteofdev.com/posts/bundlers/
 
 DOM:
-<script type="module" src="index.js">
+<!-- <script type="module" src="index.js"> -->
 
 OS:
 //package.json
-{type: "module"}
+// {type: "module"}
 
 
 ## Design Patterns for Javascript:
@@ -27,5 +27,9 @@ Use Abstract Factory pattern to have a Controller handle platform identification
   Shared Layer
   Publishing on Github Pages
 
+## Install dependencies
+npm ci
+npm install -g ntl
 
-
+'ntl'
+then I can select which scripts to launch
