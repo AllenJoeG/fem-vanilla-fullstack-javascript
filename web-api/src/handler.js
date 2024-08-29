@@ -5,6 +5,7 @@ import { routes } from './routes/userRoutes.js'
 import { DEFAULT_HEADERS } from './util/util.js'
 import { generateInstance } from './factory/userFactory.js'
 
+//an Engine for publishing entry points for user consumption
 // import data from './../database/data.json' assert { type: 'json' }
 
 const currentDir = dirname(fileURLToPath(import.meta.url))
@@ -22,7 +23,7 @@ const allRoutes = {
   //takes all userRoutes and adds default
   ...userRoutes,
 
-  default(request, response) {
+  defaultRoute(request, response) {
     response.writeHead(404, DEFAULT_HEADERS)
     response.write(
       JSON.stringify({
@@ -44,12 +45,24 @@ function handler(request, response) {
 
   // /users:get
   const key = `${pathname}:${method.toLowerCase()}`
-  const chosen = allRoutes[key] ?? allRoutes.default
+  const chosen = allRoutes[key] ?? allRoutes.defaultRoute
 
   return Promise.resolve(chosen(request, response))
-    .catch((error) => {
-      console.log("error", error)
-    })
+    .catch(handleError(response))
+}
+
+//global error handle
+function handleError(response) {
+  return error => {
+    console.log('Something error has gone wrong', error.stack)
+    response.writeHead(500, DEFAULT_HEADERS)
+    response.write(
+      JSON.stringify({
+        error: "internal server error"
+      })
+    )
+    return response.end()
+  }
 }
 
 export default handler
