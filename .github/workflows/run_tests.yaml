@@ -19,11 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      
+
       - name: Restore Dependencies for app
         run: npm ci
         working-directory: ./app/
-      
+
       - name: Run tests for app
         run: npm test
         working-directory: ./app/
@@ -31,7 +31,7 @@ jobs:
         - name: Restore Dependencies for web-api
         run: npm ci
         working-directory: ./web-api/
-      
+
       - name: Run tests for web-api
         run: npm test
         working-directory: ./web-api/
