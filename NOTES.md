@@ -3,7 +3,7 @@ Same core logic will be agnostic of frontend render.
 
 ![cover image](./cover.jpeg)
 
-Acess the [slides](https://www.icloud.com/keynote/032Y1iBWTJMdLbFIw2A3F23VA#FullStack_Vanilla_JS_-_FEM_-_Erick_Wendel)
+Access the [slides](https://www.icloud.com/keynote/032Y1iBWTJMdLbFIw2A3F23VA#FullStack_Vanilla_JS_-_FEM_-_Erick_Wendel)
 
 
 ## Pre-reqs:
