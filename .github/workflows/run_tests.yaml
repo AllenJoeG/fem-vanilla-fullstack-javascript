@@ -28,7 +28,7 @@ jobs:
         run: npm test
         working-directory: ./app/
 
-        - name: Restore Dependencies for web-api
+      - name: Restore Dependencies for web-api
         run: npm ci
         working-directory: ./web-api/
 
