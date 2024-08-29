@@ -7,6 +7,7 @@ export default class LayoutBuilder {
   #form
   #inputs = {}
   #buttons = {}
+  #alert
 
   //to initialize blessed
   setScreen({ title }) {
@@ -142,6 +143,12 @@ export default class LayoutBuilder {
       bottom: 1,
     })
 
+    submitButton.on('press', () => form.submit())
+    form.on('submit', (data) => onSubmit(data))
+    
+    clearButton.on('press', () => onClear())
+
+    //map to the private properties of this class.
     this.#form = form
     this.#inputs.name = nameInput
     this.#inputs.age = ageInput
@@ -153,12 +160,46 @@ export default class LayoutBuilder {
     return this
   }
 
+  setAlertComponent() {
+    this.#alert = blessed.box({
+      parent: this.#form,
+      width: '40%',
+      height: '20%',
+      bottom: 0,
+      border: {
+        type: 'line'
+      },
+      style: {
+        bg: 'red',
+        fg: 'black'
+      },
+      content: '',
+      tags: true,
+      align: 'center',
+      hidden: true,
+    })
+
+    this.#alert.setMessage = (msg) => {
+      this.#alert.setContent(`{bold}${msg}{/bold}`)
+      this.#alert.show()
+      this.#screen.render()
+
+      setTimeout(() => {
+        this.#alert.hide()
+        this.#screen.render()
+      }, 3000)
+    }
+
+    return this
+  }
+
   //Constructor function
   build() {
     const components = {
       screen: this.#screen,
       layout: this.#layout,
       form: this.#form,
+      alert: this.#alert,
     }
 
     //Initializes the blessed render

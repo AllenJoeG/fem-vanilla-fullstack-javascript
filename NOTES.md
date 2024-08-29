@@ -71,3 +71,4 @@ installs the app globally on my machine I can type the given 'name' to run the a
 - build the form
 - build the buttons
 
+View implements the same template, and the same contracts, you can build multiple abstract implementations.
