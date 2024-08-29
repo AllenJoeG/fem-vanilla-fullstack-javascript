@@ -72,3 +72,6 @@ installs the app globally on my machine I can type the given 'name' to run the a
 - build the buttons
 
 View implements the same template, and the same contracts, you can build multiple abstract implementations.
+
+## Publishing to NPM
+- npm publish --access public

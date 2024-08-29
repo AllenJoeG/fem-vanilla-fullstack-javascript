@@ -1,10 +1,17 @@
 {
-  "name": "@AllenJoeG/vanilla-fullstack-nodejs",
+  "name": "@allenjoeg/vanilla-fullstack-nodejs",
   "version": "0.0.1",
-  "description": "",
+  "description": "Abstract Controller Factory with render for CLI or DOM",
   "main": "index.js",
   "bin": {
     "vanilla-fullstack-nodejs": "./ui/index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/AllenJoeG/fem-vanilla-fullstack-javascript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllenJoeG/fem-vanilla-fullstack-javascript.git"
   },
   "scripts": {
     "web": "npx browser-sync './' ui/",
