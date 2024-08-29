@@ -9,10 +9,10 @@ import { generateInstance } from './factory/userFactory.js'
 // import data from './../database/data.json' assert { type: 'json' }
 
 const currentDir = dirname(fileURLToPath(import.meta.url))
-const filePath = join(currentDir, '../', 'database', 'data.json')
+const filepath = join(currentDir, '..', 'database', 'data.json')
 
 const userFactory = generateInstance({ 
-  filePath
+  filepath
 })
 
 const userRoutes = routes({

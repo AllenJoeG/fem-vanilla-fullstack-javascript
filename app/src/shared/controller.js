@@ -55,6 +55,7 @@ export default class Controller {
 
   async #getUsersFromAPI() {
     try {
+      debugger
       const result = await this.#service.getUsers()
       return result
     } catch (error) {
