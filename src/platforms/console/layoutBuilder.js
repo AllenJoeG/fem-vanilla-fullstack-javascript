@@ -32,6 +32,29 @@ export default class LayoutBuilder {
     return this
   }
 
+  // Abstract Private for building input fields
+  #createInputField({ parent, name, top, label }) {
+    const input = blessed.textbox({
+      parent,
+      name,
+      top,
+      label,
+      inputOnFocus: true,
+      left: 'center',
+      width: '60%',
+      height: '20%',
+      border: {type: 'line'},
+      style: {
+        fg: 'white',
+        bg: 'blue',
+        focus: { bg: 'lightblue' },
+      }
+    })
+
+    return input
+  }
+
+
   // 
   setFormComponent({
     onSubmit,
@@ -54,6 +77,15 @@ export default class LayoutBuilder {
       },
     })
 
+    const nameInput = this.#createInputField({
+      parent: form,
+      name: 'name',
+      top: 1,
+      label: 'Name:',
+    })
+
+    nameInput.focus()
+
     this.#form = form
 
     //always return the instance to chain functions
@@ -68,6 +100,9 @@ export default class LayoutBuilder {
       layout: this.#layout,
       form: this.#form,
     }
+
+    //Initializes the blessed render
+    components.screen.render()
 
     return components
   }
