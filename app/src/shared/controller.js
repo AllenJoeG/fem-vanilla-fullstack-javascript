@@ -7,19 +7,24 @@
 
 /**
  * @typedef {import('./viewBase.js').default} View
+ * @typedef {import('./service.js').default} Service
  */
 export default class Controller {
   /** @type {View} */
   #view
 
-  /** @param {{view: View}} deps */
-  constructor({ view }) {
+  /** @type {Service} */
+  #service
+
+  /** @param {{view: View, service: Service}} deps */
+  constructor({ view, service }) {
     this.#view = view
+    this.#service = service
   }
 
-  static init(deps) {
+  static async init(deps) {
     const controller = new Controller(deps)
-    controller.#init()
+    await controller.#init()
 
     return controller
   }
@@ -28,7 +33,7 @@ export default class Controller {
     return data.name && data.age && data.email
   }
 
-  #onSubmit({ name, age, email}) {
+  async #onSubmit({ name, age, email}) {
     if (!this.#isValid({ name, age, email })) {
       this.#view.notify({ msg: 'Please, provide valid Name, Age, and Email!' })
       return
@@ -36,22 +41,39 @@ export default class Controller {
     
     this.#view.addRow ({ name, age, email })
     this.#view.resetForm()
+
+    try {
+      await this.#service.createUser({ name, age, email })
+    } catch (error) {
+      this.#view.notify({ msg: "Server is unavailable" })
+    }
   }
 
   #onClear() {
 
   }
 
-  #init() {
+  async #getUsersFromAPI() {
+    try {
+      const result = await this.#service.getUsers()
+      return result
+    } catch (error) {
+      this.#view.notify({ msg: "Server is unavailable" })
+      return []
+    }
+  }
+
+  async #init() {
     // Point to the current class context with bind
     this.#view.configureFormSubmit(this.#onSubmit.bind(this))
     this.#view.configureFormClear(this.#onClear.bind(this))
 
-
-    const initialData= [
+    const data = await this.#getUsersFromAPI()
+    const initialData = [
       { name: 'Joe', age: 35, email: 'joe@joe.com'},
       { name: 'Mina', age: 14, email: 'mina@cat.com'},
       { name: 'Quade', age: 10, email: 'quade@cat.com'},
+      ...data
     ]
 
     this.#view.render(initialData)
