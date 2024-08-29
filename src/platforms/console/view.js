@@ -17,6 +17,11 @@ export default class View extends ViewBase {
   render(items) {
     this.#layoutBuilder
       .setScreen( {title: 'Fullstack Vanilla Javascript'})
+      .setLayout()
+      .setFormComponent({
+        onClear: () => {},
+        onSubmit: () => {},
+      })
       .build()
   }
 }
