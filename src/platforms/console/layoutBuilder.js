@@ -5,6 +5,8 @@ export default class LayoutBuilder {
   #screen
   #layout
   #form
+  #inputs = {}
+  #buttons = {}
 
   //to initialize blessed
   setScreen({ title }) {
@@ -27,7 +29,6 @@ export default class LayoutBuilder {
       width: '100%',
       height: '100%',
     })
-
     //allows us to chain functions
     return this
   }
@@ -50,10 +51,30 @@ export default class LayoutBuilder {
         focus: { bg: 'lightblue' },
       }
     })
-
     return input
   }
 
+  //
+  #createButton({ parent, name, content, bg, fg, left, bottom }) {
+    return blessed.button({
+      parent,
+      name,
+      content,
+      left,
+      bottom,
+      style: {
+        bg,
+        fg,
+        focus: {bg: `light${bg}`},
+        hover: {bg: `light${bg}`},
+      },
+      mouse: true,
+      keys: true,
+      shrink: true,
+      padding: { left: 1, right: 1 },
+      width: 'shrink',
+    })
+  }
 
   // 
   setFormComponent({
@@ -84,14 +105,53 @@ export default class LayoutBuilder {
       label: 'Name:',
     })
 
+    //initializes focus
     nameInput.focus()
 
+    const ageInput = this.#createInputField({
+      parent: form,
+      name: 'age',
+      top: 4,
+      label: 'Age:',
+    })
+
+    const emailInput = this.#createInputField({
+      parent: form,
+      name: 'email',
+      top: 7,
+      label: 'Email:',
+    })
+
+    const submitButton = this.#createButton({
+      parent: form,
+      name: 'submit',
+      content: 'Submit',
+      bg: 'green',
+      fg: 'black',
+      left: '35%',
+      bottom: 1,
+    })
+
+    const clearButton = this.#createButton({
+      parent: form,
+      name: 'clear',
+      content: 'Clear',
+      bg: 'red',
+      fg: 'white',
+      left: '55%',
+      bottom: 1,
+    })
+
     this.#form = form
+    this.#inputs.name = nameInput
+    this.#inputs.age = ageInput
+    this.#inputs.email = emailInput
+    this.#buttons.submit = submitButton
+    this.#buttons.clear = clearButton
 
     //always return the instance to chain functions
     return this
   }
-
 
   //Constructor function
   build() {
