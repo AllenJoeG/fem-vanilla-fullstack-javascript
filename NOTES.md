@@ -46,3 +46,26 @@ then I can select which scripts to launch
 node --help | grep cov
 (search through doc for text match)
 
+# Day 2
+Roadmap
+- Building the interface
+- INtegrating with the Web API
+- Publishing on npm
+
+## NPM packages: blessed, blessed-contrib
+- npm install blessed@0.1.81
+- npm install blessed-contrib@4.11
+
+- chmod +x index.js
+Allows running node as executable
+
+-edit package.json 
+Added bin, name should match bin name, point to index.js
+
+- npm link
+installs the app globally on my machine I can type the given 'name' to run the app.
+
+## Design Pattern: layoutBuilder
+- build a screen
+- build a layout
+- build the buttons
