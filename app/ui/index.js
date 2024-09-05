@@ -7,7 +7,7 @@ import Service from "../src/shared/service.js";
 //Checks for window object to know if we're on web or console
 const platform = globalThis.window ? "web" : "console";
 
-// 
+// Pipes which import to View based on platform
 const { default: View } = await import(`./../src/platforms/${platform}/view.js`)
 
 // TODO: abstract to environmental variable
